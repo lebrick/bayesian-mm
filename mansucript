@@ -4,6 +4,7 @@
 \usepackage[utf8x]{inputenc}
 \usepackage{amsmath}
 \usepackage{graphicx}
+\usepackage{tikz}
 
 \title{Title Goes Here}
 \shorttitle{Grit Mediating Quantitaitve Attitudes}
