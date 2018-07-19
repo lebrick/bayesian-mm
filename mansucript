@@ -1,0 +1,49 @@
+\documentclass[a4paper,man,natbib]{apa6}
+
+\usepackage[english]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage{amsmath}
+\usepackage{graphicx}
+
+\title{Title Goes Here}
+\shorttitle{Grit Mediating Quantitaitve Attitudes}
+\author{Zachary J.~Kunicki & Leslie Ann D.~Brick (author order TBA)}
+\affiliation{Brown}
+
+\abstract{Abstract Goes Here.}
+
+\begin{document}
+\maketitle
+
+\section{Introduction}
+\label{intro}
+
+\section{Methods}
+\label{intro}
+
+\subsection{Participants}
+\label{participants}
+
+\subsection{Materials}
+\label{Materials}
+%%Should just report \% of variance explained by factor scores here??
+
+\subsection{Procedure}
+\label{procedure}
+
+\section{Results}
+\label{results}
+%add subsections as needed
+
+\section{Discussion}
+\label{discussion}
+
+\subsection{Limitations}
+\label{limits}
+
+\subsection{Future Directions}
+\label{future}
+
+\bibliography{bayesian-mm}
+
+\end{document}
