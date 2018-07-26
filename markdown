@@ -1,37 +1,31 @@
-#################IMPORTING DATA
+---
+title: "bayesian mixed model"
+author: "Zach"
+date: "July 26, 2018"
+output: html_document
+---
+
+#########################IMPORTING DATA
 
 library(readxl)
+ThesisSP18Data <- read_excel("~/Graduate School/URI Statistics MS/STA 599 Thesis/Thesis Analyses/ThesisSP18Data.xlsx")
 
-#################REVERSE SCORING
+ThesisSP18Data <-as.data.frame(ThesisSP18Data)
 
-#################SUBSETTING DATA
+#Need to omit final two rows of S18 (they're blank, it's leftover code from a quick analysis in the excel file)
 
-#################MCAR AND MVN TESTING
+ThesisSP18Data <- ThesisSP18Data[-c(457, 458),]
+
+##Subsetting
+S18Var <- c("MA1B", "MA2B", "MA3B", "MA4B", "MA5B", "MA6B", "MA7B", "MA8B","QANX1B", "QANX2B", "QANX3B", "QANX4B", "QUSE1B", "QUSE2B", "QUSE3B", "QUSE4B", "QINFL1B", "QINFL2B", "QINFL3B", "QINFL4B", "QINFL5B", "QINFL6B", "QINFL7B", "QSF1B", "QSF2B", "QSF3B", "QSF4B", "QHIND1B", "QHIND2B", "QHIND3B", "QHIND4B", "QHIND5B", "QSC1B", "QSC2B", "QSC3B", "QSC4B", "QSE1B", "QSE2B", "QSE3B", "QSE3B", "QSE5B", "QSE6B", "SATS1B", "SATS2B", "SATS3B", "SATS4B", "SATS5B", "SATS6B", "SATS7B", "SATS8B", "SATS9B", "SATS10B", "SATS11B", "SATS12B", "SATS13B", "SATS14B", "SATS15B", "SATS16B", "SATS17B", "SATS18B", "SATS19B", "SATS20B", "SATS21B", "SATS22B", "SATS23B", "SATS24B", "SATS25B", "SATS26B", "SATS27B", "SATS28B", "SATS29B", "SATS30B", "SATS31B", "SATS32B", "SATS33B", "SATS34B", "SATS35B", "SATS36B", "MA1M", "MA2M", "MA3M", "MA4M", "MA5M", "MA6M", "MA7M", "MA8M", "QANX1M", "QANX2M", "QANX3M", "QANX4M", "QUSE1M", "QUSE2M", "QUSE3M", "QUSE4M", "QINFL1M", "QINFL2M", "QINFL3M", "QINFL4M", "QINFL5M", "QINFL6M", "QINFL7M", "QSF1M", "QSF2M", "QSF3M", "QSF4M", "QHIND1M", "QHIND2M", "QHIND3M", "QHIND4M", "QHIND5M", "QSC1M", "QSC2M", "QSC3M", "QSC4M", "QSE1M", "QSE2M", "QSE3M", "QSE3M", "QSE5M", "QSE6M", "SATS1M", "SATS2M", "SATS3M", "SATS4M", "SATS5M", "SATS6M", "SATS7M", "SATS8M", "SATS9M", "SATS10M", "SATS11M", "SATS12M", "SATS13M", "SATS14M", "SATS15M", "SATS16M", "SATS17M", "SATS18M", "SATS19M", "SATS20M", "SATS21M", "SATS22M", "SATS23M", "SATS24M", "SATS25M", "SATS26M", "SATS27M", "SATS28M", "SATS29M", "SATS30M", "SATS31M", "SATS32M", "SATS33M", "SATS34M", "SATS35M", "SATS36M", "MA1E", "MA2E", "MA3E", "MA4E", "MA5E", "MA6E", "MA7E", "MA8E","QANX1E", "QANX2E", "QANX3E", "QANX4E", "QUSE1E", "QUSE2E", "QUSE3E", "QUSE4E", "QINFL1E", "QINFL2E", "QINFL3E", "QINFL4E", "QINFL5E", "QINFL6E", "QINFL7E", "QSF1E", "QSF2E", "QSF3E", "QSF4E", "QHIND1E", "QHIND2E", "QHIND3E", "QHIND4E", "QHIND5E", "QSC1E", "QSC2E", "QSC3E", "QSC4E", "QSE1E", "QSE2E", "QSE3E", "QSE3E", "QSE5E", "QSE6E", "SATS1E", "SATS2E", "SATS3E", "SATS4E", "SATS5E", "SATS6E", "SATS7E", "SATS8E", "SATS9E", "SATS10E", "SATS11E", "SATS12E", "SATS13E", "SATS14E", "SATS15E", "SATS16E", "SATS17E", "SATS18E", "SATS19E", "SATS20E", "SATS21E", "SATS22E", "SATS23E", "SATS24E", "SATS25E", "SATS26E", "SATS27E", "SATS28E", "SATS29E", "SATS30E", "SATS31E", "SATS32E", "SATS33E", "SATS34E", "SATS35E", "SATS36E", "Resil1B", "Resil2B", "Resil3B", "Resil4B", "Resil5B", "Resil6B", "Grit1B", "Grit2B", "Grit3B", "Grit4B", "Grit5B", "Grit6B", "Grit7B", "Grit8B", "Resil1M", "Resil2M", "Resil3M", "Resil4M", "Resil5M", "Resil6M", "Grit1M", "Grit2M", "Grit3M", "Grit4M", "Grit5M", "Grit6M", "Grit7M", "Grit8M", "Resil1E", "Resil2E", "Resil3E", "Resil4E", "Resil5E", "Resil6E", "Grit1E", "Grit2E", "Grit3E", "Grit4E", "Grit5E", "Grit6E", "Grit7E", "Grit8E")
+
+S18<-ThesisSP18Data[S18Var]
 
 library(MissMech)
-TestMCARNormality(data)
-
-library(BaylorEdPsych)
-LittleMCAR(data)
-
-library(MVN)
-mvn(data)
-
-#################FACTOR ANALYSIS, MAP TEST, AND OMEGA (and alpha too)
-##probably don't need to report MAP test, all measures should be single factors
-
-library(psych) ##note sample code is below is from MS thesis
-
-F17QAnxB <- c("QANX1B", "QANX2B", "QANX3B", "QANX4B")
-F17QAnxBOCC <-F17CC[F17QAnxB]
-omega(F17QAnxBOCC, fm="ml") #omega = .91, alpha = .86
-
-VSS(data)
-
-QANX_FAB <-fa(F17QAnxBOCC, factors=1,rotation="promax",scores="regression")
-QANX_FSB <- as.data.frame(QANX_FAB$scores)
-F17CC <- cbind(F17CC, QANX_FSB)
-F17CC$QANX_FSB <- as.numeric(unlist(QANX_FSB))
+TestMCARNormality(S18)  
+###Error in solve.default(sigoo) : system is computationally singular: reciprocal condition number = 1.03251e-17
+##Usually these types of error come from linear dependence, which makes sense since the data are longitudinal.
+##Could proceed by doing data reduction (factor scores/averages), then testing for MCAR/MVN on the reduced dataset?
 
 #################CODE COPY/PASTED FROM YUAN & MACKINNON (2009)
 
