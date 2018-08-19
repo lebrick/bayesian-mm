@@ -27,6 +27,174 @@ TestMCARNormality(S18)
 ##Usually these types of error come from linear dependence, which makes sense since the data are longitudinal.
 ##Could proceed by doing data reduction (factor scores/averages), then testing for MCAR/MVN on the reduced dataset?
 
+#####################REVERSE SCORING
+
+S18BMM$Resil2B <- 6 - S18BMM$Resil2B
+S18BMM$Resil4B <- 6 - S18BMM$Resil4B
+S18BMM$Resil6B <- 6 - S18BMM$Resil6B
+
+S18BMM$Resil2M <- 6 - S18BMM$Resil2M
+S18BMM$Resil4M <- 6 - S18BMM$Resil4M
+S18BMM$Resil6M <- 6 - S18BMM$Resil6M
+
+S18BMM$Resil2E <- 6 - S18BMM$Resil2E
+S18BMM$Resil4E <- 6 - S18BMM$Resil4E
+S18BMM$Resil6E <- 6 - S18BMM$Resil6E
+
+S18BMM$Grit1B <- 6 - S18BMM$Grit1B
+S18BMM$Grit3B <- 6 - S18BMM$Grit3B
+S18BMM$Grit5B <- 6 - S18BMM$Grit5B
+S18BMM$Grit6B <- 6 - S18BMM$Grit6B
+
+S18BMM$Grit1M <- 6 - S18BMM$Grit1M
+S18BMM$Grit3M <- 6 - S18BMM$Grit3M
+S18BMM$Grit5M <- 6 - S18BMM$Grit5M
+S18BMM$Grit6M <- 6 - S18BMM$Grit6M
+
+S18BMM$Grit1E <- 6 - S18BMM$Grit1E
+S18MMM$Grit3E <- 6 - S18BMM$Grit3E
+S18BMM$Grit5E <- 6 - S18BMM$Grit5E
+S18BMM$Grit6E <- 6 - S18BMM$Grit6E
+
+#####################CREATING FACTOR SCORES
+
+QAnxB <- c("QANX1B", "QANX2B", "QANX3B", "QANX4B")
+QAnxBFA <-S18BMM[QAnxB]
+QANX_FAB <-fa(QAnxBFA, factors=1,rotation="promax",scores="regression")
+QANX_FSB <- as.data.frame(QANX_FAB$scores)
+S18BMM <- cbind(S18BMM, QANX_FSB)
+S18BMM$QANX_FSB <- as.numeric(unlist(QANX_FSB))
+
+QAnxM <- c("QANX1M", "QANX2M", "QANX3M", "QANX4M")
+QAnxMFA <-S18BMM[QAnxM]
+QANX_FAM <-fa(QAnxMFA, factors=1,rotation="promax",scores="regression")
+QANX_FSM <- as.data.frame(QANX_FAM$scores)
+S18BMM <- cbind(S18BMM, QANX_FSM)
+S18BMM$QANX_FSM <- as.numeric(unlist(QANX_FSM))
+
+QAnxE <- c("QANX1E", "QANX2E", "QANX3E", "QANX4E")
+QAnxEFA <-S18BMM[QAnxE]
+QANX_FAE <-fa(QAnxEFA, factors=1,rotation="promax",scores="regression")
+QANX_FSE <- as.data.frame(QANX_FAE$scores)
+S18BMM <- cbind(S18BMM, QANX_FSE)
+S18BMM$QANX_FSE <- as.numeric(unlist(QANX_FSE))
+
+QSEB <- c("QSE1B", "QSE2B", "QSE3B", "QSE4B", "QSE5B", "QSE6B")
+QSEBFA <-S18BMM[QSEB]
+QSE_FAB <-fa(QSEBFA, factors=1,rotation="promax",scores="regression")
+QSE_FSB <- as.data.frame(QSE_FAB$scores)
+S18BMM <- cbind(S18BMM, QSE_FSB)
+S18BMM$QSE_FSB <- as.numeric(unlist(QSE_FSB))
+
+QSEM <- c("QSE1M", "QSE2M", "QSE3M", "QSE4M")
+QSEMFA <-S18BMM[QSEM]
+QSE_FAM <-fa(QSEMFA, factors=1,rotation="promax",scores="regression")
+QSE_FSM <- as.data.frame(QSE_FAM$scores)
+S18BMM <- cbind(S18BMM, QSE_FSM)
+S18BMM$QSE_FSM <- as.numeric(unlist(QSE_FSM))
+
+QSEE <- c("QSE1E", "QSE2E", "QSE3E", "QSE4E")
+QSEEFA <-S18BMM[QSEE]
+QSE_FAE <-fa(QSEEFA, factors=1,rotation="promax",scores="regression")
+QSE_FSE <- as.data.frame(QSE_FAE$scores)
+S18BMM <- cbind(S18BMM, QSE_FSE)
+S18BMM$QSE_FSE <- as.numeric(unlist(QSE_FSE))
+
+ResilB <- c("Resil1B", "Resil2B", "Resil3B", "Resil4B", "Resil5B", "Resil6B")
+ResilBFA <- S18BMM[ResilB]
+R_FAB <-fa(ResilBFA, factors=1, scores="regression")
+R_FSB <-as.data.frame(R_FAB$scores)
+S18BMM <- cbind(S18BMM, R_FSB)
+S18BMM$R_FSB <- as.numeric(unlist(R_FSB))
+
+ResilM <- c("Resil1M", "Resil2M", "Resil3M", "Resil4M", "Resil5M", "Resil6M")
+ResilMFA <- S18BMM[ResilM]
+R_FAM <-fa(ResilMFA, factors=1, scores="regression")
+R_FSM <-as.data.frame(R_FAM$scores)
+S18BMM <- cbind(S18BMM, R_FSM)
+S18BMM$R_FSM <- as.numeric(unlist(R_FSM))
+
+ResilE <- c("Resil1E", "Resil2E", "Resil3E", "Resil4E", "Resil5E", "Resil6E")
+ResilEFA <- S18BMM[ResilE]
+R_FAE <-fa(ResilEFA, factors=1, scores="regression")
+R_FSE <-as.data.frame(R_FAE$scores)
+S18BMM <- cbind(S18BMM, R_FSE)
+S18BMM$R_FSE <- as.numeric(unlist(R_FSE))
+
+GritBF <- c("Grit1B", "Grit2B", "Grit3B", "Grit4B", "Grit5B", "Grit6B", "Grit7B", "Grit8B")
+GritBFA <- S18BMM[GritB]
+G_FAB <-fa(GritBFA, nfactors=2, rotate = "promax", scores="tenBerge")
+G_FSB <-as.data.frame(G_FAB$scores)
+S18BMM <- cbind(S18BMM, G_FSB)
+S18BMM$G_FSB <- as.numeric(unlist(G_FSB))
+
+GritM <- c("Grit1M", "Grit2M", "Grit3M", "Grit4M", "Grit5M", "Grit6M", "Grit7M", "Grit8M")
+GritMFA <- S18BMM[GritM]
+G_FAM <-fa(GritMFA, nfactors=2, rotate = "promax", scores="tenBerge")
+G_FSM <-as.data.frame(G_FAM$scores)
+S18BMM <- cbind(S18BMM, G_FSM)
+S18BMM$G_FSM <- as.numeric(unlist(G_FSM))
+
+GritE <- c("Grit1E", "Grit2E", "Grit3E", "Grit4E", "Grit5E", "Grit6E", "Grit7E", "Grit8E")
+GritEFA <- S18BMM[GritE]
+G_FAE <-fa(GritEFA, nfactors=2, rotate="promax", scores="tenBerge")
+G_FSE <-as.data.frame(G_FAE$scores)
+S18BMM <- cbind(S18BMM, G_FSE)
+S18BMM$G_FSE <- as.numeric(unlist(G_FSE))
+
+#Grit is a 2-factor structure (F1 = items 2, 4, 7, 8; F2 = items 1, 3, 5, 6)
+#was a pain to extract two factors from same analysis
+#just did them separaretly
+
+GritBF1 <- c("Grit2B", "Grit4B", "Grit7B", "Grit8B")
+GritBF2 <- c("Grit1B", "Grit3B", "Grit5B", "Grit6B")
+GritBFA1 <- S18BMM[GritBF1]
+GritBFA2 <- S18BMM[GritBF2]
+G_FAB1 <- fa(GritBFA1, nfactors=1, scores="regression")
+G_FAB2 <- fa(GritBFA2, nfactors=1, scores="regression")
+G_FSB1 <-as.data.frame(G_FAB1$scores)
+G_FSB2 <-as.data.frame(G_FAB2$scores)
+S18BMM <- cbind(S18BMM, G_FSB1)
+S18BMM <- cbind(S18BMM, G_FSB2)
+S18BMM$G_FSB1 <- as.numeric(unlist(G_FSB1))
+S18BMM$G_FSB2 <- as.numeric(unlist(G_FSB2))
+
+GritMF1 <- c("Grit2M", "Grit4M", "Grit7M", "Grit8M")
+GritMF2 <- c("Grit1M", "Grit3M", "Grit5M", "Grit6M")
+GritMFA1 <- S18BMM[GritMF1]
+GritMFA2 <- S18BMM[GritMF2]
+G_FAM1 <- fa(GritMFA1, nfactors=1, scores="regression")
+G_FAM2 <- fa(GritMFA2, nfactors=1, scores="regression")
+G_FSM1 <-as.data.frame(G_FAM1$scores)
+G_FSM2 <-as.data.frame(G_FAM2$scores)
+S18BMM <- cbind(S18BMM, G_FSM1)
+S18BMM <- cbind(S18BMM, G_FSM2)
+S18BMM$G_FSM1 <- as.numeric(unlist(G_FSM1))
+S18BMM$G_FSM2 <- as.numeric(unlist(G_FSM2))
+
+GritEF1 <- c("Grit2E", "Grit4E", "Grit7E", "Grit8E")
+GritEF2 <- c("Grit1E", "Grit3E", "Grit5E", "Grit6E")
+GritEFA1 <- S18BMM[GritEF1]
+GritEFA2 <- S18BMM[GritEF2]
+G_FAE1 <- fa(GritEFA1, nfactors=1, scores="regression")
+G_FAE2 <- fa(GritEFA2, nfactors=1, scores="regression")
+G_FSE1 <-as.data.frame(G_FAE1$scores)
+G_FSE2 <-as.data.frame(G_FAE2$scores)
+S18BMM <- cbind(S18BMM, G_FSE1)
+S18BMM <- cbind(S18BMM, G_FSE2)
+S18BMM$G_FSE1 <- as.numeric(unlist(G_FSE1))
+S18BMM$G_FSE2 <- as.numeric(unlist(G_FSE2))
+
+
+#################Subsetting for Factor Scores
+
+FactorScores <- c("QANX_FSB", "QANX_FSM", "QANX_FSE", "QSE_FSB", "QSE_FSM", "QSE_FSE", "R_FSB", "R_FSM", "R_FSE", "G_FSB1", "G_FSB2", "G_FSM1", "G_FSM2", "G_FSE1", "G_FSE2")
+FSBMM <- S18BMM[FactorScores]
+
+TestMCARNormality(FSBMM)
+
+#Data are not MCAR or MVN. Darn.
+
 #################CODE COPY/PASTED FROM YUAN & MACKINNON (2009)
 
 model
